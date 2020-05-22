@@ -31,11 +31,11 @@ namespace WPTDesktop.WPTService {
         
         private System.Threading.SendOrPostCallback HelloWorldOperationCompleted;
         
-        private System.Threading.SendOrPostCallback SignUpOperationCompleted;
-        
         private System.Threading.SendOrPostCallback LoginOperationCompleted;
         
-        private System.Threading.SendOrPostCallback GetPrintersOperationCompleted;
+        private System.Threading.SendOrPostCallback GetAllPrintersOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetOrganisationPrintersOperationCompleted;
         
         private System.Threading.SendOrPostCallback RequestServiceOperationCompleted;
         
@@ -83,13 +83,13 @@ namespace WPTDesktop.WPTService {
         public event HelloWorldCompletedEventHandler HelloWorldCompleted;
         
         /// <remarks/>
-        public event SignUpCompletedEventHandler SignUpCompleted;
-        
-        /// <remarks/>
         public event LoginCompletedEventHandler LoginCompleted;
         
         /// <remarks/>
-        public event GetPrintersCompletedEventHandler GetPrintersCompleted;
+        public event GetAllPrintersCompletedEventHandler GetAllPrintersCompleted;
+        
+        /// <remarks/>
+        public event GetOrganisationPrintersCompletedEventHandler GetOrganisationPrintersCompleted;
         
         /// <remarks/>
         public event RequestServiceCompletedEventHandler RequestServiceCompleted;
@@ -125,37 +125,6 @@ namespace WPTDesktop.WPTService {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SignUp", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string SignUp(string username, string password) {
-            object[] results = this.Invoke("SignUp", new object[] {
-                        username,
-                        password});
-            return ((string)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void SignUpAsync(string username, string password) {
-            this.SignUpAsync(username, password, null);
-        }
-        
-        /// <remarks/>
-        public void SignUpAsync(string username, string password, object userState) {
-            if ((this.SignUpOperationCompleted == null)) {
-                this.SignUpOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSignUpOperationCompleted);
-            }
-            this.InvokeAsync("SignUp", new object[] {
-                        username,
-                        password}, this.SignUpOperationCompleted, userState);
-        }
-        
-        private void OnSignUpOperationCompleted(object arg) {
-            if ((this.SignUpCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.SignUpCompleted(this, new SignUpCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Login", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string Login(string username, string password) {
             object[] results = this.Invoke("Login", new object[] {
@@ -187,31 +156,62 @@ namespace WPTDesktop.WPTService {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetPrinters", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string GetPrinters(int organisationID) {
-            object[] results = this.Invoke("GetPrinters", new object[] {
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetAllPrinters", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string GetAllPrinters(string username, string password) {
+            object[] results = this.Invoke("GetAllPrinters", new object[] {
+                        username,
+                        password});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetAllPrintersAsync(string username, string password) {
+            this.GetAllPrintersAsync(username, password, null);
+        }
+        
+        /// <remarks/>
+        public void GetAllPrintersAsync(string username, string password, object userState) {
+            if ((this.GetAllPrintersOperationCompleted == null)) {
+                this.GetAllPrintersOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetAllPrintersOperationCompleted);
+            }
+            this.InvokeAsync("GetAllPrinters", new object[] {
+                        username,
+                        password}, this.GetAllPrintersOperationCompleted, userState);
+        }
+        
+        private void OnGetAllPrintersOperationCompleted(object arg) {
+            if ((this.GetAllPrintersCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetAllPrintersCompleted(this, new GetAllPrintersCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetOrganisationPrinters", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string GetOrganisationPrinters(int organisationID) {
+            object[] results = this.Invoke("GetOrganisationPrinters", new object[] {
                         organisationID});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void GetPrintersAsync(int organisationID) {
-            this.GetPrintersAsync(organisationID, null);
+        public void GetOrganisationPrintersAsync(int organisationID) {
+            this.GetOrganisationPrintersAsync(organisationID, null);
         }
         
         /// <remarks/>
-        public void GetPrintersAsync(int organisationID, object userState) {
-            if ((this.GetPrintersOperationCompleted == null)) {
-                this.GetPrintersOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPrintersOperationCompleted);
+        public void GetOrganisationPrintersAsync(int organisationID, object userState) {
+            if ((this.GetOrganisationPrintersOperationCompleted == null)) {
+                this.GetOrganisationPrintersOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetOrganisationPrintersOperationCompleted);
             }
-            this.InvokeAsync("GetPrinters", new object[] {
-                        organisationID}, this.GetPrintersOperationCompleted, userState);
+            this.InvokeAsync("GetOrganisationPrinters", new object[] {
+                        organisationID}, this.GetOrganisationPrintersOperationCompleted, userState);
         }
         
-        private void OnGetPrintersOperationCompleted(object arg) {
-            if ((this.GetPrintersCompleted != null)) {
+        private void OnGetOrganisationPrintersOperationCompleted(object arg) {
+            if ((this.GetOrganisationPrintersCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.GetPrintersCompleted(this, new GetPrintersCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.GetOrganisationPrintersCompleted(this, new GetOrganisationPrintersCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -322,32 +322,6 @@ namespace WPTDesktop.WPTService {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")]
-    public delegate void SignUpCompletedEventHandler(object sender, SignUpCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class SignUpCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal SignUpCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public string Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")]
     public delegate void LoginCompletedEventHandler(object sender, LoginCompletedEventArgs e);
     
     /// <remarks/>
@@ -374,17 +348,43 @@ namespace WPTDesktop.WPTService {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")]
-    public delegate void GetPrintersCompletedEventHandler(object sender, GetPrintersCompletedEventArgs e);
+    public delegate void GetAllPrintersCompletedEventHandler(object sender, GetAllPrintersCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class GetPrintersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class GetAllPrintersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal GetPrintersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal GetAllPrintersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")]
+    public delegate void GetOrganisationPrintersCompletedEventHandler(object sender, GetOrganisationPrintersCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3062.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetOrganisationPrintersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetOrganisationPrintersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

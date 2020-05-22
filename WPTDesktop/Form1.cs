@@ -22,17 +22,9 @@ namespace WPTDesktop
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            int organisationID = 1; //samo za test
+           
 
-            //pod References /AddService Reference/ Advanced /Ad web reference/dodati URL web servisa
-            string printersList = proxy.GetPrinters(organisationID);
-            DataTable dtPrinters = new DataTable();
-
-            //Dodan package Microsoft.AspNet.WebApi.Client za json
-
-            dtPrinters = JsonConvert.DeserializeObject<DataTable>(printersList);
-
-            dataGridView1.DataSource = dtPrinters;
+           
         }
 
         private void buttonExit_Click(object sender, EventArgs e)
@@ -42,9 +34,23 @@ namespace WPTDesktop
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Main main = new Main();
-            main.Show();
+            string username = txtUsername.Text;
+            string password = txtPassword.Text;
+            int result = int.Parse(proxy.Login(username, password));
+            if (result == 1)
+            {
+                this.Hide();
+                Main main = new Main();
+                main.Show();
+            }
+            else
+                lblInfo.Text = "Niste ispravno unjeli podatke!";
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
